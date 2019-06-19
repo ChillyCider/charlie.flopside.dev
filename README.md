@@ -51,7 +51,7 @@ venv\Scripts\activate
 Then, I generate and upload the website to S3.
 
 ```
-python tasks.py publish
+invoke publish
 ```
 
 NOTE: To upload to S3 your AWS credentials need to be set up. That process
