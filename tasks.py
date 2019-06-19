@@ -16,6 +16,7 @@ CONFIG = {
     'deploy_path': 'output',
     # Port for `serve`
     'port': 8000,
+    's3_bucket': os.getenv('S3_BUCKET')
 }
 
 @task
@@ -76,4 +77,4 @@ def publish(c):
     #    '{} {production}:{dest_path}'.format(
     #        CONFIG['deploy_path'].rstrip('/') + '/',
     #        **CONFIG))
-    c.run('aws s3 sync %s s3://%s --acl public-read --delete' % (config['deploy_path'], S3_BUCKET))
+    c.run('aws s3 sync %s s3://%s --acl public-read --delete' % (CONFIG['deploy_path'], CONFIG['s3_bucket']))
