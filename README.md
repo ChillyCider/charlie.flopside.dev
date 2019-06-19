@@ -37,6 +37,7 @@ Put this in a `.env` file at the root of the repo:
 
 ```
 S3_BUCKET=YOUR_S3_BUCKET_NAME_HERE
+THEME=/path/to/your/theme
 ```
 
 ### Publishing and Uploading
@@ -47,22 +48,11 @@ To generate the static HTML files for the site, I first activate the virtualenv:
 venv\Scripts\activate
 ```
 
-Then, I generate the website using this script that I wrote:
+Then, I generate and upload the website to S3.
 
 ```
-python publish.py
+python tasks.py publish
 ```
-
-This is essentially the same as `make publish`, except it works on Windows too.
-
-Finally, to upload to S3 I run:
-
-```
-python upload.py
-```
-
-Which is essentially the same as `make s3_upload`, except it works on Windows
-and it doesn't automatically run the publish procedure as we did above.
 
 NOTE: To upload to S3 your AWS credentials need to be set up. That process
 is explained by other people on the Internet, so I won't try.

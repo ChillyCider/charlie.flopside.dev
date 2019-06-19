@@ -5,6 +5,8 @@ import shutil
 import sys
 import datetime
 
+from dotenv import load_dotenv
+
 from invoke import task
 from invoke.util import cd
 from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
@@ -69,9 +71,9 @@ def preview(c):
 def publish(c):
     """Publish to production via rsync"""
     c.run('pelican -s publishconf.py')
-    c.run(
-        'rsync --delete --exclude ".DS_Store" -pthrvz -c '
-        '{} {production}:{dest_path}'.format(
-            CONFIG['deploy_path'].rstrip('/') + '/',
-            **CONFIG))
-
+    #c.run(
+    #    'rsync --delete --exclude ".DS_Store" -pthrvz -c '
+    #    '{} {production}:{dest_path}'.format(
+    #        CONFIG['deploy_path'].rstrip('/') + '/',
+    #        **CONFIG))
+    c.run('aws s3 sync %s s3://%s --acl public-read --delete' % (config['deploy_path'], S3_BUCKET))
